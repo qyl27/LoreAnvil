@@ -6,3 +6,8 @@ prefix: LoreAnvil
 authors: [QiuYuLuo]
 description: A bukkit plugin for changing lore of item stack with anvil.
 website: https://github.com/AmemiyaSigure/LoreAnvil
+permissions:
+  loreanvil.use:
+    default: not op
+  loreanvil.command:
+    default: op
