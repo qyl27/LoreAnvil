@@ -10,8 +10,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.awt.event.WindowFocusListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,44 +24,55 @@ public class EventInventoryClick implements Listener {
             return;
         }
 
-        if (!(event.getClickedInventory() instanceof AnvilInventory)) {
-            return;
-        }
-
         if (event.getView().getType() != InventoryType.ANVIL) {
             return;
         }
 
-        if (!event.getWhoClicked().hasPermission("`loreanvil.use")) {
-            return;
+//        if (!event.getWhoClicked().hasPermission("loreanvil.use")) {
+//            return;
+//        }
+
+        if (event.getClickedInventory() instanceof AnvilInventory) {
+            updateAnvil((AnvilInventory) event.getClickedInventory());
+
+            if (event.getRawSlot() == 2) {
+                event.setCancelled(true);
+                if (event.isShiftClick()) {
+                    event.getWhoClicked().getInventory().addItem(event.getInventory().getItem(2));
+                } else {
+                    event.getWhoClicked().setItemOnCursor(event.getInventory().getItem(2));
+                }
+                clearAnvil((AnvilInventory) event.getInventory());
+            }
+        } else if (event.getClickedInventory() instanceof PlayerInventory) {
+            updateAnvil((AnvilInventory) event.getInventory());
         }
+    }
 
-        AnvilInventory anvil = (AnvilInventory) event.getClickedInventory();
+    private void clearAnvil(AnvilInventory inventory) {
+        inventory.setItem(0, null);
+        inventory.setItem(1, null);
+        inventory.setItem(2, null);
+    }
 
-        ItemStack left =  event.getInventory().getItem(0);
-        ItemStack middle =  event.getInventory().getItem(1);
+    private void updateAnvil(AnvilInventory inventory) {
+        ItemStack left = inventory.getItem(0);
+        ItemStack middle = inventory.getItem(1);
 
         if (left != null && middle != null
                 && middle.isSimilar(new ItemStack(Material.NAME_TAG))) {
-            ItemStack result = setName(left.clone(), anvil.getRenameText());
-            event.getInventory().setItem(2, result);
-            anvil.setRepairCost(0);
+            ItemStack result = setName(left.clone(), inventory.getRenameText());
+            inventory.setItem(2, result);
+            inventory.setRepairCost(0);
         } else if (left != null && middle != null
                 && middle.isSimilar(new ItemStack(Material.PAPER))) {
-            ItemStack result = appendLore(left.clone(), anvil.getRenameText());
-            event.getInventory().setItem(2, result);
-            anvil.setRepairCost(0);
+            ItemStack result = appendLore(left.clone(), inventory.getRenameText());
+            inventory.setItem(2, result);
+            inventory.setRepairCost(0);
         } else if (left == null && middle != null) {
             ItemStack result = removeLore(middle.clone());
-            event.getInventory().setItem(2, result);
-            anvil.setRepairCost(0);
-        }
-
-        ((Player) event.getWhoClicked()).updateInventory();
-
-        int rawSlot = event.getRawSlot();
-        if (rawSlot == 2) {
-            event.setResult(Event.Result.ALLOW);
+            inventory.setItem(2, result);
+            inventory.setRepairCost(0);
         }
     }
 
@@ -68,7 +81,7 @@ public class EventInventoryClick implements Listener {
     }
 
     private ItemStack setName(ItemStack stack, String name) {
-        String colored = getColored(name);
+        String colored = getColored("&r" + name);
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(colored);
         stack.setItemMeta(meta);
@@ -76,7 +89,7 @@ public class EventInventoryClick implements Listener {
     }
 
     private ItemStack appendLore(ItemStack stack, String lore) {
-        String colored = getColored(lore);
+        String colored = getColored("&r" + lore);
         List<String> lores;
         if (stack.getItemMeta().hasLore()) {
             lores = stack.getItemMeta().getLore();
