@@ -1,5 +1,6 @@
 # LoreAnvil
 A bukkit plugin for changing lore of item stack with anvil.
+
 一个用铁砧来修改物品名称和介绍的Bukkit插件。
 
 ## 使用方法：
@@ -10,6 +11,10 @@ A bukkit plugin for changing lore of item stack with anvil.
 
 ## 权限节点：
 - loreanvil.use —— 如上方法使用的权限，默认全部拥有
+
+## Bug反馈：
+
+QQ群：950508038
 
 ## 效果展示：
 
