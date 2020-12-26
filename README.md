@@ -8,8 +8,8 @@ A bukkit plugin for changing lore of item stack with anvil.
 2. 添加介绍：把要修改的物品放在铁砧左边的格子，中间放纸，输入介绍。
 3. 删除介绍：把要修改的物品放在铁砧中间的格子，左边什么都不放。
 
-权限节点：
-loreanvil.use —— 如上方法使用的权限，默认全部拥有
+## 权限节点：
+- loreanvil.use —— 如上方法使用的权限，默认全部拥有
 
 ## 效果展示：
 
