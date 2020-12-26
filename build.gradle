@@ -1,17 +1,4 @@
 apply plugin: 'java'
-//apply plugin: 'com.github.johnrengelman.shadow'
-//
-//buildscript {
-//    repositories {
-//        maven {
-//            url "https://plugins.gradle.org/m2/"
-//        }
-//    }
-//    dependencies {
-//        classpath "com.github.jengelman.gradle.plugins:shadow:5.2.0"
-//    }
-//}
-
 
 group = pluginGroup
 version = pluginVersion
@@ -33,16 +20,9 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compileOnly 'org.spigotmc:spigot-api:1.16.3-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT'
 
-//    compile files("libs/anvilgui-1.3.0-SNAPSHOT.jar")
 }
-
-//shadowJar {
-//    dependencies {
-//        include(dependency(files("libs/anvilgui-1.3.0-SNAPSHOT.jar")))
-//    }
-//}
 
 import org.apache.tools.ant.filters.ReplaceTokens
 

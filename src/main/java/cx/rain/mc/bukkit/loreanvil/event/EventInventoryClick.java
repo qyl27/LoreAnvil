@@ -1,5 +1,8 @@
 package cx.rain.mc.bukkit.loreanvil.event;
 
+import cx.rain.mc.bukkit.loreanvil.utility.AnvilHelper;
+import cx.rain.mc.bukkit.loreanvil.utility.EnumFlag;
+import cx.rain.mc.bukkit.loreanvil.utility.Tuple;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -9,11 +12,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.AnvilInventory;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.awt.event.WindowFocusListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,27 +31,64 @@ public class EventInventoryClick implements Listener {
             return;
         }
 
-//        if (!event.getWhoClicked().hasPermission("loreanvil.use")) {
-//            return;
-//        }
+        if (!event.getWhoClicked().hasPermission("loreanvil.use")) {
+            return;
+        }
 
-        if (event.getClickedInventory() instanceof AnvilInventory) {
-            updateAnvil((AnvilInventory) event.getClickedInventory());
+        Inventory inv = event.getClickedInventory();
+
+        if (inv instanceof AnvilInventory) {
+            AnvilInventory anvil = (AnvilInventory) inv;
+            ItemStack left = anvil.getItem(0);
+            ItemStack right = anvil.getItem(1);
+
+            Tuple<ItemStack, EnumFlag> result = AnvilHelper.getResult(left, right, anvil.getRenameText());
+            if (result.right == EnumFlag.NO_OPERATION) {
+                return;
+            }
 
             if (event.getRawSlot() == 2) {
                 event.setCancelled(true);
-                if (event.isShiftClick()) {
-                    event.getWhoClicked().getInventory().addItem(event.getInventory().getItem(2));
-                } else {
-                    event.getWhoClicked().setItemOnCursor(event.getInventory().getItem(2));
+
+                if (result.right == EnumFlag.ADD_LORE) {
+                    assert right != null;
+                    right.setAmount(right.getAmount() - 1);
                 }
-                clearAnvil((AnvilInventory) event.getInventory());
+
+                if (event.isShiftClick()) {
+                    event.getWhoClicked().getInventory().addItem(result.left);
+                } else {
+                    event.getWhoClicked().setItemOnCursor(result.left);
+                }
+
+                if (result.right == EnumFlag.RENAME || result.right == EnumFlag.ADD_LORE) {
+                    anvil.setItem(0, null);
+                } else if (result.right == EnumFlag.REMOVE_LORE) {
+                    anvil.setItem(1, null);
+                }
             }
-        } else if (event.getClickedInventory() instanceof PlayerInventory) {
-            updateAnvil((AnvilInventory) event.getInventory());
         }
+
+
+
+//        if (event.getClickedInventory() instanceof AnvilInventory) {
+//            updateAnvil((AnvilInventory) event.getClickedInventory());
+//
+//            if (event.getRawSlot() == 2) {
+//                event.setCancelled(true);
+//                if (event.isShiftClick()) {
+//                    event.getWhoClicked().getInventory().addItem(event.getInventory().getItem(2));
+//                } else {
+//                    event.getWhoClicked().setItemOnCursor(event.getInventory().getItem(2));
+//                }
+//                clearAnvil((AnvilInventory) event.getInventory());
+//            }
+//        } else if (event.getClickedInventory() instanceof PlayerInventory) {
+//            updateAnvil((AnvilInventory) event.getInventory());
+//        }
     }
 
+    /*
     private void clearAnvil(AnvilInventory inventory) {
         inventory.setItem(0, null);
         inventory.setItem(1, null);
@@ -75,47 +115,5 @@ public class EventInventoryClick implements Listener {
             inventory.setRepairCost(0);
         }
     }
-
-    private String getColored(String str) {
-        return ChatColor.translateAlternateColorCodes('&', str);
-    }
-
-    private ItemStack setName(ItemStack stack, String name) {
-        String colored = getColored("&r" + name);
-        ItemMeta meta = stack.getItemMeta();
-        meta.setDisplayName(colored);
-        stack.setItemMeta(meta);
-        return stack;
-    }
-
-    private ItemStack appendLore(ItemStack stack, String lore) {
-        String colored = getColored("&r" + lore);
-        List<String> lores;
-        if (stack.getItemMeta().hasLore()) {
-            lores = stack.getItemMeta().getLore();
-        } else {
-            lores = new ArrayList<>();
-        }
-        lores.add(colored);
-
-        ItemMeta meta = stack.getItemMeta();
-        meta.setLore(lores);
-        stack.setItemMeta(meta);
-        return stack;
-    }
-
-    private ItemStack removeLore(ItemStack stack) {
-        List<String> lores;
-        if (stack.getItemMeta().hasLore()) {
-            lores = stack.getItemMeta().getLore();
-            lores.remove(lores.size() - 1);
-        } else {
-            lores = new ArrayList<>();
-        }
-
-        ItemMeta meta = stack.getItemMeta();
-        meta.setLore(lores);
-        stack.setItemMeta(meta);
-        return stack;
-    }
+    */
 }

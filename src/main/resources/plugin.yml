@@ -9,5 +9,3 @@ website: https://github.com/AmemiyaSigure/LoreAnvil
 permissions:
   loreanvil.use:
     default: not op
-  loreanvil.command:
-    default: op

@@ -1,23 +1,24 @@
 package cx.rain.mc.bukkit.loreanvil;
 
 import cx.rain.mc.bukkit.loreanvil.event.EventInventoryClick;
+import cx.rain.mc.bukkit.loreanvil.event.EventPrepareAnvil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class LoreAnvil extends JavaPlugin {
-    private static LoreAnvil INSTANCE;
+    private static LoreAnvil Instance;
 
     public LoreAnvil() {
-        INSTANCE = this;
+        Instance = this;
     }
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-        getLogger().info("Lore Anvil is now loading!");
+        getLogger().info("I am loading now!");
 
         Bukkit.getPluginManager().registerEvents(new EventInventoryClick(), this);
-        //Bukkit.getPluginManager().registerEvents(new EventPlayerInteract(), this);
+        Bukkit.getPluginManager().registerEvents(new EventPrepareAnvil(), this);
     }
 
     @Override
@@ -27,6 +28,6 @@ public final class LoreAnvil extends JavaPlugin {
     }
 
     public static LoreAnvil getInstance() {
-        return INSTANCE;
+        return Instance;
     }
 }
