@@ -13,7 +13,7 @@ loreanvil.use —— 如上方法使用的权限，默认全部拥有
 
 ## 效果展示：
 
-![修改名称](https://github.com/AmemiyaSigure/LoreAnvil/raw/master/img/1.png)
-![添加介绍](https://github.com/AmemiyaSigure/LoreAnvil/raw/master/img/2.png)
-![删除介绍](https://github.com/AmemiyaSigure/LoreAnvil/raw/master/img/3.png)
-![删除介绍](https://github.com/AmemiyaSigure/LoreAnvil/raw/master/img/4.png)
+![修改名称](https://github.com/AmemiyaSigure/LoreAnvil/raw/main/img/1.png)
+![添加介绍](https://github.com/AmemiyaSigure/LoreAnvil/raw/main/img/2.png)
+![删除介绍](https://github.com/AmemiyaSigure/LoreAnvil/raw/main/img/3.png)
+![删除介绍](https://github.com/AmemiyaSigure/LoreAnvil/raw/main/img/4.png)
