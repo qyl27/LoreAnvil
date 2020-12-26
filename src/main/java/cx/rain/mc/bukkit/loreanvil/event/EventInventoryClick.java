@@ -5,6 +5,7 @@ import cx.rain.mc.bukkit.loreanvil.utility.EnumFlag;
 import cx.rain.mc.bukkit.loreanvil.utility.Tuple;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -66,54 +67,10 @@ public class EventInventoryClick implements Listener {
                 } else if (result.right == EnumFlag.REMOVE_LORE) {
                     anvil.setItem(1, null);
                 }
+
+                ((Player) event.getWhoClicked())
+                        .playSound(event.getWhoClicked().getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
             }
         }
-
-
-
-//        if (event.getClickedInventory() instanceof AnvilInventory) {
-//            updateAnvil((AnvilInventory) event.getClickedInventory());
-//
-//            if (event.getRawSlot() == 2) {
-//                event.setCancelled(true);
-//                if (event.isShiftClick()) {
-//                    event.getWhoClicked().getInventory().addItem(event.getInventory().getItem(2));
-//                } else {
-//                    event.getWhoClicked().setItemOnCursor(event.getInventory().getItem(2));
-//                }
-//                clearAnvil((AnvilInventory) event.getInventory());
-//            }
-//        } else if (event.getClickedInventory() instanceof PlayerInventory) {
-//            updateAnvil((AnvilInventory) event.getInventory());
-//        }
     }
-
-    /*
-    private void clearAnvil(AnvilInventory inventory) {
-        inventory.setItem(0, null);
-        inventory.setItem(1, null);
-        inventory.setItem(2, null);
-    }
-
-    private void updateAnvil(AnvilInventory inventory) {
-        ItemStack left = inventory.getItem(0);
-        ItemStack middle = inventory.getItem(1);
-
-        if (left != null && middle != null
-                && middle.isSimilar(new ItemStack(Material.NAME_TAG))) {
-            ItemStack result = setName(left.clone(), inventory.getRenameText());
-            inventory.setItem(2, result);
-            inventory.setRepairCost(0);
-        } else if (left != null && middle != null
-                && middle.isSimilar(new ItemStack(Material.PAPER))) {
-            ItemStack result = appendLore(left.clone(), inventory.getRenameText());
-            inventory.setItem(2, result);
-            inventory.setRepairCost(0);
-        } else if (left == null && middle != null) {
-            ItemStack result = removeLore(middle.clone());
-            inventory.setItem(2, result);
-            inventory.setRepairCost(0);
-        }
-    }
-    */
 }
