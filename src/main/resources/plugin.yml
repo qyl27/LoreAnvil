@@ -7,5 +7,11 @@ authors: [QiuYuLuo]
 description: A bukkit plugin for changing lore of item stack with anvil.
 website: https://github.com/AmemiyaSigure/LoreAnvil
 permissions:
-  loreanvil.use:
+  loreanvil.name:
+    default: true
+  loreanvil.lore:
+    default: true
+  loreanvil.color:
+    default: true
+  loreanvil.remove:
     default: true

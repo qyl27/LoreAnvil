@@ -15,7 +15,7 @@ public final class LoreAnvil extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        getLogger().info("I am loading now!");
+        getLogger().info("Colorize your life~");
 
         Bukkit.getPluginManager().registerEvents(new EventInventoryClick(), this);
         Bukkit.getPluginManager().registerEvents(new EventPrepareAnvil(), this);

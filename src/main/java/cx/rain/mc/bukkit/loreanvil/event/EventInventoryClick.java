@@ -32,7 +32,9 @@ public class EventInventoryClick implements Listener {
             return;
         }
 
-        if (!event.getWhoClicked().hasPermission("loreanvil.use")) {
+        if (!event.getWhoClicked().hasPermission("loreanvil.name")
+            && !event.getWhoClicked().hasPermission("loreanvil.lore")
+            && !event.getWhoClicked().hasPermission("loreanvil.remove")) {
             return;
         }
 
@@ -43,9 +45,25 @@ public class EventInventoryClick implements Listener {
             ItemStack left = anvil.getItem(0);
             ItemStack right = anvil.getItem(1);
 
-            Tuple<ItemStack, EnumFlag> result = AnvilHelper.getResult(left, right, anvil.getRenameText());
-            if (result.right == EnumFlag.NO_OPERATION) {
-                return;
+            Tuple<ItemStack, EnumFlag> result = AnvilHelper.getResult(left, right, anvil.getRenameText(),
+                    event.getWhoClicked().hasPermission("loreanvil.color"));
+
+            EnumFlag operation = result.right;
+            switch (operation) {
+                case RENAME:
+                    if (!event.getWhoClicked().hasPermission("loreanvil.name")) {
+                        return;
+                    }
+                case ADD_LORE:
+                    if (!event.getWhoClicked().hasPermission("loreanvil.lore")) {
+                        return;
+                    }
+                case REMOVE_LORE:
+                    if (!event.getWhoClicked().hasPermission("loreanvil.remove")) {
+                        return;
+                    }
+                case NO_OPERATION:
+                    return;
             }
 
             if (event.getRawSlot() == 2) {

@@ -16,11 +16,14 @@ public class EventPrepareAnvil implements Listener {
         ItemStack left = anvil.getItem(0);
         ItemStack right = anvil.getItem(1);
 
-        if (!event.getView().getPlayer().hasPermission("loreanvil.use")) {
+        if (!event.getView().getPlayer().hasPermission("loreanvil.name")
+                && !event.getView().getPlayer().hasPermission("loreanvil.lore")
+                && !event.getView().getPlayer().hasPermission("loreanvil.remove")) {
             return;
         }
 
-        Tuple<ItemStack, EnumFlag> result = AnvilHelper.getResult(left, right, anvil.getRenameText());
+        Tuple<ItemStack, EnumFlag> result = AnvilHelper.getResult(left, right,
+                anvil.getRenameText(), event.getView().getPlayer().hasPermission("loreanvil.color"));
         if (result.right != EnumFlag.NO_OPERATION) {
             event.setResult(result.left);
         }
