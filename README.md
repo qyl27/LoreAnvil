@@ -3,6 +3,11 @@ A bukkit plugin for changing lore of item stack with anvil.
 
 一个用铁砧来修改物品名称和介绍的Bukkit插件。
 
+## 版本
+开发时的版本：**1.18.2**  
+测试过的版本：**1.18.2**、**1.16.4**  
+理论支持版本：**1.18-1.13**
+
 ## 使用方法：
 
 1. 修改名称：把要修改的物品放在铁砧左边的格子，中间什么都不放，输入名称。
@@ -26,7 +31,7 @@ QQ群：616440544
 
 ## 效果展示：
 
-![修改名称](https://github.com/AmemiyaSigure/LoreAnvil/raw/main/img/1.png)
-![添加介绍](https://github.com/AmemiyaSigure/LoreAnvil/raw/main/img/2.png)
-![删除介绍](https://github.com/AmemiyaSigure/LoreAnvil/raw/main/img/3.png)
-![删除介绍](https://github.com/AmemiyaSigure/LoreAnvil/raw/main/img/4.png)
+![修改名称](https://github.com/qyl27/LoreAnvil/raw/main/img/1.png)
+![添加介绍](https://github.com/qyl27/LoreAnvil/raw/main/img/2.png)
+![删除介绍](https://github.com/qyl27/LoreAnvil/raw/main/img/3.png)
+![删除介绍](https://github.com/qyl27/LoreAnvil/raw/main/img/4.png)
