@@ -1,5 +1,5 @@
 name: LoreAnvil
-version: @version@
+version: 1.1.1
 main: cx.rain.mc.bukkit.loreanvil.LoreAnvil
 api-version: 1.13
 prefix: LoreAnvil

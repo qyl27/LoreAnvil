@@ -35,3 +35,8 @@ QQ群：616440544
 ![添加介绍](https://github.com/qyl27/LoreAnvil/raw/main/img/2.png)
 ![删除介绍](https://github.com/qyl27/LoreAnvil/raw/main/img/3.png)
 ![删除介绍](https://github.com/qyl27/LoreAnvil/raw/main/img/4.png)
+
+## Todo：
+1. 修复体验问题；
+2. 删除特定物品自定义名称和介绍；
+3. 禁止修改特定物品的名称和介绍。

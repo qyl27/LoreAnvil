@@ -1,7 +1,6 @@
 package cx.rain.mc.bukkit.loreanvil.utility;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -19,7 +18,8 @@ public class AnvilHelper {
         Matcher matcher = HEX_COLOR.matcher(str);
 
         while(matcher.find()) {
-            matcher.appendReplacement(buffer, ChatColor.valueOf("#" + matcher.group(1)).toString());
+            ChatColor color = ChatColor.of("#" + matcher.group(1));
+            matcher.appendReplacement(buffer, color.toString());
         }
 
         return ChatColor.translateAlternateColorCodes('&', matcher.appendTail(buffer).toString());
@@ -78,15 +78,15 @@ public class AnvilHelper {
     }
 
     public static Tuple<ItemStack, EnumFlag> getResult(ItemStack left, ItemStack right,
-                                                       String text, boolean paresColor) {
+                                                       String text, boolean parseColor) {
         if (left != null) {
             if (right == null) {
                 if (text != null && !text.isEmpty()) {
-                    ItemStack result = setName(left, text, paresColor);
+                    ItemStack result = setName(left, text, parseColor);
                     return new Tuple<>(result, EnumFlag.RENAME);
                 }
             } else if (right.isSimilar(new ItemStack(Material.PAPER))) {
-                ItemStack result = appendLore(left, text, paresColor);
+                ItemStack result = appendLore(left, text, parseColor);
                 return new Tuple<>(result, EnumFlag.ADD_LORE);
             }
         } else {
