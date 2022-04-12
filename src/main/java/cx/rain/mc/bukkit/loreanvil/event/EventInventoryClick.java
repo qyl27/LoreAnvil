@@ -24,6 +24,10 @@ import java.util.List;
 public class EventInventoryClick implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+
         if (!(event.getWhoClicked() instanceof Player)) {
             return;
         }
@@ -84,6 +88,7 @@ public class EventInventoryClick implements Listener {
                     anvil.setItem(0, null);
                 } else if (result.right == EnumFlag.REMOVE_LORE) {
                     anvil.setItem(1, null);
+                    anvil.setRepairCost(0);
                 }
 
                 ((Player) event.getWhoClicked())

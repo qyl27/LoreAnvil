@@ -25,7 +25,7 @@ public class EventPrepareAnvil implements Listener {
         Tuple<ItemStack, EnumFlag> result = AnvilHelper.getResult(left, right,
                 anvil.getRenameText(), event.getView().getPlayer().hasPermission("loreanvil.color"));
         if (result.right != EnumFlag.NO_OPERATION) {
-            event.setResult(result.left);
+            event.setResult(null);
         }
     }
 }
