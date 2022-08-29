@@ -27,7 +27,7 @@ A bukkit plugin for changing lore of item stack with anvil.
 
 ## Bug反馈：
 
-QQ群：616440544
+QQ群：798735245
 
 ## 效果展示：
 
