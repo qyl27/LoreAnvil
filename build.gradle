@@ -1,7 +1,11 @@
-apply plugin: 'java'
+plugins {
+    id 'java'
+    id 'com.rikonardo.papermake' version '1.0.6'
+}
 
 group = pluginGroup
 version = pluginVersion
+archivesBaseName = 'lore-anvil'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -19,15 +23,17 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
-
 }
 
-import org.apache.tools.ant.filters.ReplaceTokens
-
 processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        filter ReplaceTokens, tokens: [version: version]
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
     }
+}
+
+devServer {
 }
