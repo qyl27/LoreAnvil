@@ -58,14 +58,17 @@ public class EventInventoryClick implements Listener {
                     if (!event.getWhoClicked().hasPermission("loreanvil.name")) {
                         return;
                     }
+                    break;
                 case ADD_LORE:
                     if (!event.getWhoClicked().hasPermission("loreanvil.lore")) {
                         return;
                     }
+                    break;
                 case REMOVE_LORE:
                     if (!event.getWhoClicked().hasPermission("loreanvil.remove")) {
                         return;
                     }
+                    break;
                 case NO_OPERATION:
                     return;
             }

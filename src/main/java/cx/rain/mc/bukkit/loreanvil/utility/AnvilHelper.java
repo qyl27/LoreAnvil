@@ -61,6 +61,10 @@ public class AnvilHelper {
     }
 
     public static ItemStack removeLore(ItemStack stack) {
+        if (!stack.getItemMeta().hasLore()) {
+            return null;
+        }
+
         List<String> lores;
         if (stack.getItemMeta().hasLore()) {
             lores = stack.getItemMeta().getLore();
