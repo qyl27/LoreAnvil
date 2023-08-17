@@ -6,10 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class LoreAnvil extends JavaPlugin {
-    private static LoreAnvil Instance;
+    private static LoreAnvil INSTANCE;
 
     public LoreAnvil() {
-        Instance = this;
+        INSTANCE = this;
     }
 
     @Override
@@ -28,6 +28,6 @@ public final class LoreAnvil extends JavaPlugin {
     }
 
     public static LoreAnvil getInstance() {
-        return Instance;
+        return INSTANCE;
     }
 }
