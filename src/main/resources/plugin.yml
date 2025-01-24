@@ -7,12 +7,14 @@ authors: [qyl27]
 description: A bukkit plugin for changing name or lore of an item stack with anvil.
 website: https://github.com/qyl27/LoreAnvil
 permissions:
-  loreanvil.name:
+  loreanvil.rename:
     default: true
-  loreanvil.lore:
+  loreanvil.lore.add:
     default: true
-  loreanvil.color:
+  loreanvil.lore.remove:
     default: true
-  loreanvil.remove:
+  loreanvil.no_too_expensive:
     default: true
 folia-supported: true
+softdepend:
+  - ProtocolLib

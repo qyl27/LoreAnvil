@@ -3,18 +3,25 @@ plugins {
     id 'com.rikonardo.papermake' version '1.0.6'
 }
 
-group = pluginGroup
-version = pluginVersion
+group = 'cx.rain.mc.bukkit'
+version = '1.2.0'
 archivesBaseName = 'lore-anvil'
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    options.release = 21
+}
 
 repositories {
     mavenCentral()
     maven {
-        name = 'spigotmc-repo'
-        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+    maven {
+        name = 'dmulloy2-repo'
+        url = 'https://repo.dmulloy2.net/repository/public/'
     }
     maven {
         name = 'sonatype'
@@ -23,7 +30,12 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
+    compileOnly 'io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT'
+
+    compileOnly 'com.comphenix.protocol:ProtocolLib:5.3.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
 }
 
 processResources {
