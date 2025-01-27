@@ -53,5 +53,6 @@ public class AnvilRename implements IAnvilOperation {
     @Override
     public void postOperate(@NotNull AnvilView view) {
         view.getTopInventory().setFirstItem(ItemStack.empty());
+        view.getTopInventory().setResult(ItemStack.empty());
     }
 }

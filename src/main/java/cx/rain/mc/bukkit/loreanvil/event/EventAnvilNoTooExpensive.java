@@ -1,7 +1,5 @@
 package cx.rain.mc.bukkit.loreanvil.event;
 
-import cx.rain.mc.bukkit.loreanvil.utility.ClickArgs;
-import cx.rain.mc.bukkit.loreanvil.utility.ClickHelper;
 import cx.rain.mc.bukkit.loreanvil.utility.PacketHelper;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
@@ -59,20 +57,23 @@ public class EventAnvilNoTooExpensive implements Listener {
                 return;
             }
 
-            if (view.getRepairCost() >= view.getMaximumRepairCost()) {
-                var args = new ClickArgs(event.getCursor().clone(),
-                        Objects.requireNonNullElse(anvil.getResult(), ItemStack.empty()).clone(),
-                        anvil, view.getBottomInventory(), player, event.getClick(), true, false);
-                if (ClickHelper.handleInventoryClick(args)) {
-                    player.setLevel(player.getLevel() - view.getRepairCost());
-                    view.setCursor(args.getCursor());
-                    event.setCurrentItem(args.getClicked());
-                    anvil.setFirstItem(ItemStack.empty());
-                    anvil.setSecondItem(ItemStack.empty());
-                    event.setResult(Event.Result.ALLOW);
-                    player.playSound(player, Sound.BLOCK_ANVIL_USE, 1, 1);
+            var result = Objects.requireNonNullElse(anvil.getResult(), ItemStack.empty()).clone();
+
+            if (view.getCursor().isEmpty()) {
+                view.setCursor(result);
+            } else {
+                var r = player.getInventory().addItem(result);
+                for (var i : r.values()) {
+                    player.getWorld().dropItem(player.getLocation(), i);
                 }
             }
+
+            anvil.setFirstItem(ItemStack.empty());
+            Objects.requireNonNull(view.getTopInventory().getSecondItem()).subtract();
+            anvil.setResult(ItemStack.empty());
+            player.setLevel(player.getLevel() - view.getRepairCost());
+            event.setResult(Event.Result.ALLOW);
+            player.playSound(player, Sound.BLOCK_ANVIL_USE, 1, 1);
         }
     }
 

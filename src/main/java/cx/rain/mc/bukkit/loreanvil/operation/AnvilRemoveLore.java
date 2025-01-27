@@ -54,5 +54,6 @@ public class AnvilRemoveLore implements IAnvilOperation {
     @Override
     public void postOperate(@NotNull AnvilView view) {
         view.getTopInventory().setSecondItem(ItemStack.empty());
+        view.getTopInventory().setResult(ItemStack.empty());
     }
 }

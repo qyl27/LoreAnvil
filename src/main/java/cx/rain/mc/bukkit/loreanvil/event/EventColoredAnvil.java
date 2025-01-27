@@ -1,8 +1,6 @@
 package cx.rain.mc.bukkit.loreanvil.event;
 
 import cx.rain.mc.bukkit.loreanvil.operation.IAnvilOperation;
-import cx.rain.mc.bukkit.loreanvil.utility.ClickArgs;
-import cx.rain.mc.bukkit.loreanvil.utility.ClickHelper;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -54,20 +52,21 @@ public class EventColoredAnvil implements Listener {
                 }
 
                 if (op.test(view)) {
-                    var anvil = view.getTopInventory();
                     var result = op.getResult(view);
 
-                    var args = new ClickArgs(event.getCursor().clone(), result.clone(),
-                            anvil, view.getBottomInventory(), player, event.getClick(), true, false);
-                    if (ClickHelper.handleInventoryClick(args)) {
-                        op.postOperate(view);
-                        player.setLevel(player.getLevel() - 1);
-                        view.setCursor(args.getCursor());
-                        event.setCurrentItem(args.getClicked());
-                        event.setResult(Event.Result.ALLOW);
-                        player.playSound(player, Sound.BLOCK_ANVIL_USE, 1, 1);
-                        return;
+                    if (view.getCursor().isEmpty()) {
+                        view.setCursor(result);
+                    } else {
+                        var r = player.getInventory().addItem(result);
+                        for (var i : r.values()) {
+                            player.getWorld().dropItem(player.getLocation(), i);
+                        }
                     }
+
+                    op.postOperate(view);
+                    player.setLevel(player.getLevel() - 1);
+                    event.setResult(Event.Result.ALLOW);
+                    player.playSound(player, Sound.BLOCK_ANVIL_USE, 1, 1);
                 }
             }
         }

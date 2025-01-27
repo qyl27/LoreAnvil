@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'cx.rain.mc.bukkit'
-version = '1.2.1'
+version = '1.2.2'
 archivesBaseName = 'lore-anvil'
 
 compileJava {

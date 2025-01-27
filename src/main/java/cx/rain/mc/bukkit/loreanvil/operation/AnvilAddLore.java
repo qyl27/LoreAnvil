@@ -57,6 +57,7 @@ public class AnvilAddLore implements IAnvilOperation {
     @Override
     public void postOperate(@NotNull AnvilView view) {
         view.getTopInventory().setFirstItem(ItemStack.empty());
-        view.getTopInventory().setSecondItem(ItemStack.empty());
+        Objects.requireNonNull(view.getTopInventory().getSecondItem()).subtract();
+        view.getTopInventory().setResult(ItemStack.empty());
     }
 }
