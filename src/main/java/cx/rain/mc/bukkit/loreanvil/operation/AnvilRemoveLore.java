@@ -44,16 +44,10 @@ public class AnvilRemoveLore implements IAnvilOperation {
             return ItemStack.empty();
         }
 
-        lore.remove(lore.size() - 1);
+        lore.removeLast();
         meta.lore(lore);
 
         result.setItemMeta(meta);
         return result;
-    }
-
-    @Override
-    public void postOperate(@NotNull AnvilView view) {
-        view.getTopInventory().setSecondItem(ItemStack.empty());
-        view.getTopInventory().setResult(ItemStack.empty());
     }
 }

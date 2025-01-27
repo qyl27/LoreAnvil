@@ -16,6 +16,4 @@ public interface IAnvilOperation {
     boolean test(@NotNull AnvilView view);
 
     ItemStack getResult(@NotNull AnvilView view);
-
-    void postOperate(@NotNull AnvilView view);
 }

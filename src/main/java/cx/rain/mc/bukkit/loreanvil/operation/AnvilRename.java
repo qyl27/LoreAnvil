@@ -49,10 +49,4 @@ public class AnvilRename implements IAnvilOperation {
         result.setItemMeta(meta);
         return result;
     }
-
-    @Override
-    public void postOperate(@NotNull AnvilView view) {
-        view.getTopInventory().setFirstItem(ItemStack.empty());
-        view.getTopInventory().setResult(ItemStack.empty());
-    }
 }

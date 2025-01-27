@@ -53,11 +53,4 @@ public class AnvilAddLore implements IAnvilOperation {
         result.setItemMeta(meta);
         return result;
     }
-
-    @Override
-    public void postOperate(@NotNull AnvilView view) {
-        view.getTopInventory().setFirstItem(ItemStack.empty());
-        Objects.requireNonNull(view.getTopInventory().getSecondItem()).subtract();
-        view.getTopInventory().setResult(ItemStack.empty());
-    }
 }
