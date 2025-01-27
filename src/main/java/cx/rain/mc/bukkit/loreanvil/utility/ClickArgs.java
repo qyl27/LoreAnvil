@@ -10,6 +10,9 @@ import org.jetbrains.annotations.NotNull;
 
 @Data
 public class ClickArgs {
+
+    private boolean handled = false;
+
     /**
      * Clone of the cursor ItemStack.
      */
@@ -39,4 +42,28 @@ public class ClickArgs {
     @NonNull
     @NotNull
     private ClickType clickType;
+
+    private boolean canTake = false;
+    private boolean canPlace = false;
+
+
+    public ClickArgs(@NotNull ItemStack cursor, @NotNull ItemStack clicked,
+                     @NotNull Inventory sourceInventory, @NotNull Inventory anotherInventory,
+                     @NotNull Player player, @NotNull ClickType clickType) {
+        this.cursor = cursor;
+        this.clicked = clicked;
+        this.sourceInventory = sourceInventory;
+        this.anotherInventory = anotherInventory;
+        this.player = player;
+        this.clickType = clickType;
+    }
+
+    public ClickArgs(@NotNull ItemStack cursor, @NotNull ItemStack clicked,
+                     @NotNull Inventory sourceInventory, @NotNull Inventory anotherInventory,
+                     @NotNull Player player, @NotNull ClickType clickType,
+                     boolean canTake, boolean canPlace) {
+        this(cursor, clicked, sourceInventory, anotherInventory, player, clickType);
+        this.canTake = canTake;
+        this.canPlace = canPlace;
+    }
 }

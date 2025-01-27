@@ -58,15 +58,16 @@ public class EventColoredAnvil implements Listener {
                     var result = op.getResult(view);
 
                     var args = new ClickArgs(event.getCursor().clone(), result.clone(),
-                            anvil, view.getBottomInventory(), player, event.getClick());
-                    ClickHelper.handleInventoryClick(args);
-                    op.postOperate(view);
-                    player.setLevel(player.getLevel() - 1);
-                    view.setCursor(args.getCursor());
-                    event.setCurrentItem(args.getClicked());
-                    event.setResult(Event.Result.ALLOW);
-                    player.playSound(player, Sound.BLOCK_ANVIL_USE, 1, 1);
-                    return;
+                            anvil, view.getBottomInventory(), player, event.getClick(), true, false);
+                    if (ClickHelper.handleInventoryClick(args)) {
+                        op.postOperate(view);
+                        player.setLevel(player.getLevel() - 1);
+                        view.setCursor(args.getCursor());
+                        event.setCurrentItem(args.getClicked());
+                        event.setResult(Event.Result.ALLOW);
+                        player.playSound(player, Sound.BLOCK_ANVIL_USE, 1, 1);
+                        return;
+                    }
                 }
             }
         }

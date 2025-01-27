@@ -62,13 +62,16 @@ public class EventAnvilNoTooExpensive implements Listener {
             if (view.getRepairCost() >= view.getMaximumRepairCost()) {
                 var args = new ClickArgs(event.getCursor().clone(),
                         Objects.requireNonNullElse(anvil.getResult(), ItemStack.empty()).clone(),
-                        anvil, view.getBottomInventory(), player, event.getClick());
-                ClickHelper.handleInventoryClick(args);
-                player.setLevel(player.getLevel() - view.getRepairCost());
-                view.setCursor(args.getCursor());
-                event.setCurrentItem(args.getClicked());
-                event.setResult(Event.Result.ALLOW);
-                player.playSound(player, Sound.BLOCK_ANVIL_USE, 1, 1);
+                        anvil, view.getBottomInventory(), player, event.getClick(), true, false);
+                if (ClickHelper.handleInventoryClick(args)) {
+                    player.setLevel(player.getLevel() - view.getRepairCost());
+                    view.setCursor(args.getCursor());
+                    event.setCurrentItem(args.getClicked());
+                    anvil.setFirstItem(ItemStack.empty());
+                    anvil.setSecondItem(ItemStack.empty());
+                    event.setResult(Event.Result.ALLOW);
+                    player.playSound(player, Sound.BLOCK_ANVIL_USE, 1, 1);
+                }
             }
         }
     }
